@@ -1,16 +1,17 @@
 'use client'
 import StyledCard from "@/components/molecules/Card";
 import BaseContainer from "@/components/template/BaseContainer";
+import { useAppDispatch } from "@/hooks/redux";
 import { auth } from "@/lib/firebase";
 import { validateEmail, validatePassword } from "@/lib/utils";
+import { login } from "@/store/slices/authSlice";
 import { Box, Button, FormControl, FormLabel, TextField, Typography, Link } from "@mui/material";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useRouter } from "next/navigation";
 import { ChangeEvent, FormEvent, useState } from "react";
 
-
 export default function LoginForm() {
-
+    const dispatch = useAppDispatch()
     const [form, setForm] = useState({
         email: '',
         password: ''
@@ -29,7 +30,7 @@ export default function LoginForm() {
         }
         const userCredential = await signInWithEmailAndPassword(auth, form.email, form.password)
         const token = await userCredential.user.getIdToken()
-        localStorage.setItem("access_token", token)
+        dispatch(login(token));
         router.push("/")
     }
 

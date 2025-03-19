@@ -18,9 +18,6 @@ export default function UserList() {
         dispatch(fetchUsers());
     }, [dispatch]);
 
-    if (!users || users.length === 0) {
-        return null;
-    }
     return (
         <>
             <Box sx={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
