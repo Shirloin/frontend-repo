@@ -1,5 +1,5 @@
-import RegisterForm from "./RegisterForm";
+import RegisterForm from "../../../components/organisms/RegisterForm";
 
-export default function RegisterPage(){
-    return <RegisterForm/>
+export default function RegisterPage() {
+    return <RegisterForm />
 }

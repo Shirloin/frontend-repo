@@ -1,35 +1,42 @@
 'use client'
 import StyledCard from "@/components/molecules/Card";
-import AuthContainer from "@/components/organisms/AuthContainer";
+import BaseContainer from "@/components/template/BaseContainer";
+import { auth } from "@/lib/firebase";
+import { validateEmail, validatePassword } from "@/lib/utils";
 import { Box, Button, FormControl, FormLabel, TextField, Typography, Link } from "@mui/material";
-import { FormEvent, useState } from "react";
+import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useRouter } from "next/navigation";
+import { ChangeEvent, FormEvent, useState } from "react";
 
 
 export default function RegisterForm() {
+    const [form, setForm] = useState({
+        email: '',
+        password: ''
+    })
+    const router = useRouter()
 
     const [emailError, setEmailError] = useState(false)
     const [emailErrorMessage, setEmailErrorMessage] = useState('')
     const [passwordError, setPasswordError] = useState(false)
     const [passwordErrorMessage, setPasswordErrorMessage] = useState('');
-    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        e.preventDefault()
         if (emailError || passwordError) {
-            e.preventDefault()
             return
         }
-        const data = new FormData(e.currentTarget);
-        console.log({
-            email: data.get('email'),
-            password: data.get('password'),
-        });
+        const user = await createUserWithEmailAndPassword(auth, form.email, form.password)
+        console.log(user)
+        router.push("/login")
     }
 
     const validateInputs = () => {
-        const email = document.getElementById('email') as HTMLInputElement;
-        const password = document.getElementById('password') as HTMLInputElement;
-
+        const email = form.email
+        const password = form.password
         let isValid = true;
 
-        if (!email.value || !/\S+@\S+\.\S+/.test(email.value)) {
+
+        if (validateEmail(email)) {
             setEmailError(true);
             setEmailErrorMessage('Please enter a valid email address.');
             isValid = false;
@@ -38,7 +45,7 @@ export default function RegisterForm() {
             setEmailErrorMessage('');
         }
 
-        if (!password.value || password.value.length < 6) {
+        if (validatePassword(password)) {
             setPasswordError(true);
             setPasswordErrorMessage('Password must be at least 6 characters long.');
             isValid = false;
@@ -50,9 +57,14 @@ export default function RegisterForm() {
         return isValid;
     };
 
+    const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+        const { name, value } = e.target
+        setForm({ ...form, [name]: value })
+    }
+
     return (
         <>
-            <AuthContainer>
+            <BaseContainer>
                 <StyledCard variant="outlined">
                     <Typography
                         component="h1"
@@ -75,6 +87,8 @@ export default function RegisterForm() {
                         <FormControl>
                             <FormLabel htmlFor="email">Email</FormLabel>
                             <TextField
+                                value={form.email}
+                                onChange={handleChange}
                                 error={emailError}
                                 helperText={emailErrorMessage}
                                 id="email"
@@ -92,6 +106,8 @@ export default function RegisterForm() {
                         <FormControl>
                             <FormLabel htmlFor="password">Password</FormLabel>
                             <TextField
+                                value={form.password}
+                                onChange={handleChange}
                                 error={passwordError}
                                 helperText={passwordErrorMessage}
                                 name="password"
@@ -126,7 +142,7 @@ export default function RegisterForm() {
                         </Typography>
                     </Box>
                 </StyledCard>
-            </AuthContainer>
+            </BaseContainer>
         </>
     )
 }

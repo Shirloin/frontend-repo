@@ -1,9 +1,12 @@
 'use client'
 import { Stack, styled } from "@mui/material";
 
-const AuthContainer = styled(Stack)(({ theme }) => ({
+const BaseContainer = styled(Stack)(({ theme }) => ({
     height: 'calc((1 - var(--template-frame-height, 0)) * 100dvh)',
     minHeight: '100%',
+    display: 'flex',
+    justifyContent: 'start',
+    alignItems: 'center',
     padding: theme.spacing(2),
     [theme.breakpoints.up('sm')]: {
         padding: theme.spacing(4),
@@ -24,4 +27,4 @@ const AuthContainer = styled(Stack)(({ theme }) => ({
     },
 }));
 
-export default AuthContainer;
+export default BaseContainer;
