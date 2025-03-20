@@ -11,7 +11,7 @@ export default function Home() {
     <>
       <Navbar />
       <BaseContainer>
-        <Box sx={{ width: "50%", mx: "auto" }}>
+        <Box sx={{ width: "50%", mx: "auto", marginTop: 6 }}>
           <UserAction />
           <UserList />
         </Box>

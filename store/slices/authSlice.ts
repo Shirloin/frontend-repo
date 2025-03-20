@@ -4,22 +4,21 @@ interface AuthState {
     isAuthenticated: boolean
 }
 const initialState: AuthState = {
-    isAuthenticated: typeof window !== "undefined" && !!localStorage.getItem("access_token"),
+    isAuthenticated: false,
 };
 
 const authSlice = createSlice({
     name: "auth",
     initialState,
     reducers: {
-        login: (state, action) => {
-            localStorage.setItem("access_token", action.payload);
-            state.isAuthenticated = true;
-        },
         logout: (state) => {
             localStorage.removeItem("access_token");
             state.isAuthenticated = false;
         },
+        setAuthState: (state, action) => {
+            state.isAuthenticated = action.payload;
+        },
     },
 });
-export const { login, logout } = authSlice.actions;
+export const { logout, setAuthState } = authSlice.actions;
 export default authSlice.reducer;

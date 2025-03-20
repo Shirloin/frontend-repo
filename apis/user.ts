@@ -1,7 +1,7 @@
 import { ApiResponse } from "@/types/ApiResponse"
 import axios from "./axios"
-import axiosModule from "axios"
 import { User } from "@/types/User"
+import handleApiError from "@/lib/handleApiError"
 
 export const UserService = {
     async fetchUsers(): Promise<ApiResponse<User[]>> {
@@ -9,11 +9,8 @@ export const UserService = {
             const response = await axios.get<ApiResponse<User[]>>("/api/users")
             return response.data
         } catch (error) {
-            if (axiosModule.isAxiosError(error)) {
-                throw new Error(error.response?.data?.message || "Network error");
-            } else {
-                throw new Error("Fail to fetch users");
-            }
+            handleApiError(error);
+            throw error
         }
     },
     async createUser(user: User): Promise<ApiResponse<User>> {
@@ -21,11 +18,8 @@ export const UserService = {
             const response = await axios.post<ApiResponse<User>>("/api/users", user)
             return response.data
         } catch (error) {
-            if (axiosModule.isAxiosError(error)) {
-                throw new Error(error.response?.data?.message || "Network error");
-            } else {
-                throw new Error("Fail to create user");
-            }
+            handleApiError(error);
+            throw error
         }
     },
     async updateUser(user: User): Promise<ApiResponse<User>> {
@@ -33,11 +27,8 @@ export const UserService = {
             const response = await axios.put<ApiResponse<User>>(`/api/users/${user.id}`, user)
             return response.data
         } catch (error) {
-            if (axiosModule.isAxiosError(error)) {
-                throw new Error(error.response?.data?.message || "Network error");
-            } else {
-                throw new Error("Fail to update user");
-            }
+            handleApiError(error);
+            throw error
         }
     },
     async deleteUser(id: string): Promise<ApiResponse<User>> {
@@ -45,11 +36,8 @@ export const UserService = {
             const response = await axios.delete<ApiResponse<User>>(`/api/users/${id}`)
             return response.data
         } catch (error) {
-            if (axiosModule.isAxiosError(error)) {
-                throw new Error(error.response?.data?.message || "Network error");
-            } else {
-                throw new Error("Fail to delete user");
-            }
+            handleApiError(error);
+            throw error
         }
     },
 }

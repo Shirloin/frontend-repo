@@ -1,6 +1,6 @@
 import axiosModule from "axios";
 
-const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL
+const API_BASE_URL = process.env.NEXT_PUBLIC_FIREBASE_EMULATOR == "true" ? process.env.NEXT_PUBLIC_FIREBASE_API_BASE_URL : process.env.NEXT_PUBLIC_API_BASE_URL
 
 const axios = axiosModule.create({
     baseURL: API_BASE_URL,

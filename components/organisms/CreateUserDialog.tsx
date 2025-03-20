@@ -82,9 +82,7 @@ export default function CreateUserDialog() {
         }
 
         handleClose()
-        await dispatch(createUser(form))
-
-
+        dispatch(createUser(form))
     }
 
     return (

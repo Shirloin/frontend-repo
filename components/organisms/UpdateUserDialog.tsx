@@ -73,7 +73,7 @@ export default function UpdateUserDialog({ user }: UpdateUserDialogProps) {
         }
 
         handleClose()
-        await dispatch(updateUser(form))
+        dispatch(updateUser(form))
 
 
     }
