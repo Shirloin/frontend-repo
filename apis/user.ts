@@ -1,6 +1,6 @@
 import { ApiResponse } from "@/types/ApiResponse"
 import axios from "./axios"
-import { User } from "@/types/User"
+import { User } from "shared/User"
 import handleApiError from "@/lib/handleApiError"
 
 export const UserService = {

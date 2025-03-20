@@ -1,5 +1,5 @@
 import { UserService } from "@/apis/user";
-import { User } from "@/types/User";
+import { User } from "shared/User";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 export const fetchUsers = createAsyncThunk("users/fetch", async () => {

@@ -1,4 +1,4 @@
-import { User } from "@/types/User"
+import { User } from "shared/User";
 import { createSlice } from "@reduxjs/toolkit"
 import { createUser, deleteUser, fetchUsers, updateUser } from "../thunks/userThunk"
 

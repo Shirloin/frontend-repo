@@ -1,7 +1,7 @@
 import handleApiError from "@/lib/handleApiError";
 import { ApiResponse } from "@/types/ApiResponse";
 import axios from "./axios";
-import { User } from "@/types/User";
+import { User } from 'shared/user';
 
 export const AuthService = {
     async register(data: User): Promise<ApiResponse<User>> {

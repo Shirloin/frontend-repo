@@ -1,5 +1,5 @@
 import { AuthService } from "@/apis/auth";
-import { User } from "@/types/User";
+import { User } from "shared/User";
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 

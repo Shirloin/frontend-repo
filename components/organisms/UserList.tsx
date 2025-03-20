@@ -2,7 +2,7 @@
 
 import { useAppDispatch, useAppSelector } from "@/hooks/redux";
 import { fetchUsers } from "@/store/thunks/userThunk";
-import { User } from "@/types/User";
+import { User } from "shared/User";
 import { Box, Paper, Table, TableBody, TableCell, TableHead, TableRow, Typography } from "@mui/material";
 import { useEffect } from "react";
 import UpdateUserDialog from "./UpdateUserDialog";

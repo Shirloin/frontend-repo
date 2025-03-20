@@ -5,7 +5,7 @@ import React, { ChangeEvent, FormEvent, useState } from "react";
 import { validateEmail, validateName } from "@/lib/utils";
 import { useAppDispatch } from "@/hooks/redux";
 import { updateUser } from "@/store/thunks/userThunk";
-import { User } from "@/types/User";
+import { User } from "shared/User";
 
 interface UpdateUserDialogProps {
     user: User
